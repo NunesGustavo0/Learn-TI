@@ -10,7 +10,7 @@
 * [HIDDEN INFORMATION]
 
 
-# :eyes: FUNCIONALIDADES OFERTADAS:
+# :eyes: PAGINAS DO SISTEMA:
 
 :heavy_check_mark: Cadastro de Clientes: Permite adicionar, editar e remover informações de clientes.
 
