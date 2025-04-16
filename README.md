@@ -14,9 +14,6 @@
 * JavaScript.
 * ...
 
-# :computer: COMO EXECUTAR O SISTEMA
-bla vla v,admwiodnusadjisabibdveagdsa
-
 # :eyes: PAGINAS DO SISTEMA:
 
 :heavy_check_mark: Sintaxes das Linguagens de Programação
@@ -24,3 +21,6 @@ bla vla v,admwiodnusadjisabibdveagdsa
 :heavy_check_mark: Indicações Bibliográficas
 
 :heavy_check_mark: ...
+
+# :computer: COMO EXECUTAR O SISTEMA
+bla vla v,admwiodnusadjisabibdveagdsa
