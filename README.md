@@ -14,6 +14,7 @@
 * JavaScript.
 * ...
 
+# :computer: COMO EXECUTAR O SISTEMA
 
 # :eyes: PAGINAS DO SISTEMA:
 
