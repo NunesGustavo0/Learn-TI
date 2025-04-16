@@ -12,6 +12,7 @@
 # :globe_with_meridians: TECNOLOGIAS USADAS
 * HTML5 e CSS3.
 * JavaScript.
+* ...
 
 
 # :eyes: PAGINAS DO SISTEMA:
@@ -19,3 +20,5 @@
 :heavy_check_mark: Sintaxes das Linguagens de Programação
 
 :heavy_check_mark: Indicações Bibliográficas
+
+:heavy_check_mark: ...
