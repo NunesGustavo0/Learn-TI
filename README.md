@@ -12,8 +12,6 @@
 
 # :eyes: PAGINAS DO SISTEMA:
 
-:heavy_check_mark: Cadastro de Clientes: Permite adicionar, editar e remover informações de clientes.
+:heavy_check_mark: Sintaxes das Linguagens de Programação
 
-:heavy_check_mark: Gestão de Funcionários: Controle de dados e permissões de funcionários cadastrados.
-
-:heavy_check_mark: Administração de Gerentes: Configuração e monitoramento das atividades dos gerentes.
+:heavy_check_mark: Indicações Bibliográficas
