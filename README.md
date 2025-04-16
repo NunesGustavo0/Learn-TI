@@ -10,8 +10,8 @@
 * Nosso objetivo é simplificar o acesso a conteúdos relevantes, incentivando a formação de profissionais qualificados por meio de uma experiência intuitiva e focada nas necessidades dos estudantes.
 
 # :globe_with_meridians: TECNOLOGIAS USADAS
-* [HIDDEN INFORMATION]
-* [HIDDEN INFORMATION]
+* HTML5 e CSS3.
+* JavaScript.
 
 
 # :eyes: PAGINAS DO SISTEMA:
