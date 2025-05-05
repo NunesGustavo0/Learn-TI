@@ -31,4 +31,4 @@
 :heavy_check_mark: Boletim  
 
 # :computer: COMO EXECUTAR O SISTEMA
-Acesse o link a seguir: 
+Acesse o link a seguir: https://nunesgustavo0.github.io/Learn-TI/
