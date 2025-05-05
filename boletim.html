@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boletim</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* ESTILOS ESPECÍFICOS DO BOLETIM */
+        .grades-container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .grades-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            margin-top: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .grades-table th, .grades-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .grades-table th {
+            background-color: #001542;
+            color: white;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .edit-btn, .delete-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .edit-btn { color: #0a74da; }
+        .delete-btn { color: #ff4444; }
+        
+        /* MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 100;
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 50px auto;
+            padding: 20px;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 5px;
+        }
+        
+        /* SELECTS E INPUTS */
+        #semesterSelect, #gradeDiscipline, #gradeN1, #gradeN2, #gradeN3 {
+            padding: 8px;
+            width: 100%;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        #addGradeBtn {
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #0a74da;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra de Navegação Superior -->
+    <header class="main-header">
+        <div class="logo-container">
+            <img src="logo.jpg" alt="Logo da Instituição" class="logo">
+        </div>
+        
+        <div class="user-menu">
+            <div class="user-avatar" id="userAvatar">
+                <i class="fas fa-user-circle"></i>
+                <div class="user-dropdown" id="userDropdown">
+                    <span>Usuário</span>
+                    <a href="#" onclick="logout()">Sair</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Barra de Navegação Horizontal -->
+    <nav class="top-nav">
+        <ul>
+            <li><a href="home.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="disciplinas.html"><i class="fas fa-book"></i> Disciplinas</a></li>
+            <li><a href="agenda.html"><i class="fas fa-calendar-alt"></i> Agenda</a></li>
+            <li><a href="boletim.html" class="active"><i class="fas fa-chart-bar"></i> Boletim</a></li>
+        </ul>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <main class="grades-container">
+        <h1>Boletim</h1>
+        
+        <!-- Seletor de Semestre -->
+        <select id="semesterSelect">
+            <option value="1">1° Semestre 2025</option>
+            <option value="2">2° Semestre 2025</option>
+        </select>
+        
+        <!-- Tabela de Notas -->
+        <table class="grades-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Disciplina</th>
+                    <th>N1</th>
+                    <th>N2</th>
+                    <th>N3</th>
+                    <th>Média</th>
+                    <th>Situação</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="gradesTableBody">
+                <!-- Dados serão preenchidos pelo JavaScript -->
+            </tbody>
+        </table>
+        
+        <button id="addGradeBtn">
+            <i class="fas fa-plus"></i> Adicionar Nota
+        </button>
+    </main>
+
+    <!-- Modal para Adicionar/Editar Notas -->
+    <div id="gradeModal" class="modal">
+        <div class="modal-content">
+            <span id="closeModal" style="float: right; font-size: 24px; cursor: pointer;">&times;</span>
+            <h2 id="modalTitle">Adicionar Nota</h2>
+            <form id="gradeForm" style="display: flex; flex-direction: column; gap: 15px;">
+                <input type="hidden" id="editIndex">
+                <div>
+                    <label for="gradeDiscipline">Disciplina:</label>
+                    <select id="gradeDiscipline" required>
+                        <option value="">Selecione...</option>
+                        <option value="Algoritmo e Técnicas de Programação">Algoritmo e Técnicas de Programação</option>
+                        <option value="Lógica Matemática">Lógica Matemática</option>
+                        <option value="Inglês Instrumental">Inglês Instrumental</option>
+                        <option value="Matemática Aplicada">Matemática Aplicada</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="gradeN1">Nota N1:</label>
+                    <input type="number" id="gradeN1" min="0" max="10" step="0.1" required>
+                </div>
+                <div>
+                    <label for="gradeN2">Nota N2:</label>
+                    <input type="number" id="gradeN2" min="0" max="10" step="0.1" required>
+                </div>
+                <div>
+                    <label for="gradeN3">Nota N3:</label>
+                    <input type="number" id="gradeN3" min="0" max="10" step="0.1" required>
+                </div>
+                <button type="submit" style="padding: 10px; background-color: #001542; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                    Salvar Notas
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Barra de Acessibilidade -->
+    <div class="accessibility-bar">
+        <button id="increaseFont"><i class="fas fa-text-height"></i></button>
+        <button id="decreaseFont"><i class="fas fa-text-width"></i></button>
+        <button id="highContrast"><i class="fas fa-adjust"></i></button>
+        <button id="readPage"><i class="fas fa-volume-up"></i></button>
+    </div>
+
+    <script>
+        // Dados de exemplo (simulando um banco de dados)
+        const gradesData = {
+            "1": [
+                { discipline: "Algoritmo e Técnicas de Programação", n1: 10, n2: 10, n3: 10 },
+                { discipline: "Lógica Matemática", n1: 4, n2: 3, n3: 10 },
+                { discipline: "Inglês Instrumental", n1: 10, n2: 10, n3: 10 },
+                { discipline: "Matemática Aplicada", n1: 4, n2: 4, n3: 4 }
+            ],
+            "2": []
+        };
+
+        // Elementos da página
+        const gradesTableBody = document.getElementById('gradesTableBody');
+        const semesterSelect = document.getElementById('semesterSelect');
+        const addGradeBtn = document.getElementById('addGradeBtn');
+        const gradeModal = document.getElementById('gradeModal');
+        const closeModal = document.getElementById('closeModal');
+        const gradeForm = document.getElementById('gradeForm');
+        const modalTitle = document.getElementById('modalTitle');
+        const editIndexInput = document.getElementById('editIndex');
+
+        // Funções auxiliares
+        function calculateAverage(n1, n2, n3) {
+            return ((n1 + n2 + n3) / 3).toFixed(1);
+        }
+
+        function getSituation(average) {
+            return average >= 6 ? "Aprovado" : "Reprovado";
+        }
+
+        // Renderiza a tabela de notas
+        function renderGradesTable() {
+            const semester = semesterSelect.value;
+            gradesTableBody.innerHTML = '';
+            
+            gradesData[semester].forEach((grade, index) => {
+                const average = calculateAverage(grade.n1, grade.n2, grade.n3);
+                const situation = getSituation(average);
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${grade.discipline}</td>
+                    <td>${grade.n1}</td>
+                    <td>${grade.n2}</td>
+                    <td>${grade.n3}</td>
+                    <td>${average}</td>
+                    <td style="color: ${situation === 'Aprovado' ? 'green' : 'red'}">${situation}</td>
+                    <td class="action-buttons">
+                        <button class="edit-btn" onclick="editGrade(${index})"><i class="fas fa-edit"></i></button>
+                        <button class="delete-btn" onclick="deleteGrade(${index})"><i class="fas fa-trash"></i></button>
+                    </td>
+                `;
+                
+                gradesTableBody.appendChild(row);
+            });
+        }
+
+        // Abre o modal para adicionar/editar
+        function openGradeModal(index = null) {
+            if (index !== null) {
+                modalTitle.textContent = 'Editar Nota';
+                editIndexInput.value = index;
+                
+                const grade = gradesData[semesterSelect.value][index];
+                document.getElementById('gradeDiscipline').value = grade.discipline;
+                document.getElementById('gradeN1').value = grade.n1;
+                document.getElementById('gradeN2').value = grade.n2;
+                document.getElementById('gradeN3').value = grade.n3;
+            } else {
+                modalTitle.textContent = 'Adicionar Nota';
+                editIndexInput.value = '';
+                gradeForm.reset();
+            }
+            
+            gradeModal.style.display = 'block';
+        }
+
+        // Fecha o modal
+        function closeGradeModal() {
+            gradeModal.style.display = 'none';
+        }
+
+        // Edita uma nota
+        function editGrade(index) {
+            openGradeModal(index);
+        }
+
+        // Deleta uma nota
+        function deleteGrade(index) {
+            if (confirm('Deseja realmente excluir estas notas?')) {
+                gradesData[semesterSelect.value].splice(index, 1);
+                renderGradesTable();
+            }
+        }
+
+        // Event Listeners
+        semesterSelect.addEventListener('change', renderGradesTable);
+        addGradeBtn.addEventListener('click', () => openGradeModal());
+        closeModal.addEventListener('click', closeGradeModal);
+
+        gradeForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const semester = semesterSelect.value;
+            const index = editIndexInput.value;
+            const discipline = document.getElementById('gradeDiscipline').value;
+            const n1 = parseFloat(document.getElementById('gradeN1').value);
+            const n2 = parseFloat(document.getElementById('gradeN2').value);
+            const n3 = parseFloat(document.getElementById('gradeN3').value);
+            
+            const grade = { discipline, n1, n2, n3 };
+            
+            if (index === '') {
+                gradesData[semester].push(grade);
+            } else {
+                gradesData[semester][index] = grade;
+            }
+            
+            renderGradesTable();
+            closeGradeModal();
+        });
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', function() {
+            renderGradesTable();
+            
+            // Adiciona as funções ao escopo global para os eventos onclick
+            window.editGrade = editGrade;
+            window.deleteGrade = deleteGrade;
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

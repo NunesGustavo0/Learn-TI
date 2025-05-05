@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - ATP</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* ESTILOS GERAIS */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        /* BARRA SUPERIOR */
+        .main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 30px;
+            background-color: #001542;
+            color: white;
+        }
+        
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .back-arrow {
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .back-arrow:hover {
+            transform: translateX(-3px);
+        }
+        
+        .logo {
+            height: 40px;
+        }
+        
+        .user-avatar {
+            font-size: 2rem;
+            color: white;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .user-dropdown {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: white;
+            min-width: 150px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            border-radius: 5px;
+            padding: 10px;
+            z-index: 100;
+        }
+        
+        .user-dropdown a {
+            color: #333;
+            text-decoration: none;
+            display: block;
+            padding: 5px 0;
+        }
+        
+        .user-avatar:hover .user-dropdown {
+            display: block;
+        }
+        
+        /* BARRA DE NAVEGAÇÃO */
+        .top-nav {
+            background-color: #0a74da;
+            padding: 10px 20px;
+        }
+        
+        .top-nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+        }
+        
+        .top-nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        /* CONTEÚDO PRINCIPAL */
+        .container {
+            padding: 30px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: #001542;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        /* FORMULÁRIO DO QUIZ */
+        .quiz-form {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .question {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .question:last-child {
+            border-bottom: none;
+            margin-bottom: 20px;
+        }
+        
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .question-text {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #001542;
+            flex-grow: 1;
+        }
+        
+        .difficulty {
+            font-size: 0.8rem;
+            padding: 3px 10px;
+            border-radius: 20px;
+            margin-left: 15px;
+        }
+        
+        .easy {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .medium {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        .hard {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        .options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+        
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .option:hover {
+            background-color: #e9ecef;
+        }
+        
+        .option input {
+            margin-right: 10px;
+        }
+        
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #0a74da;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: background-color 0.3s;
+        }
+        
+        .submit-btn:hover {
+            background-color: #001542;
+        }
+        
+        /* MODAL DE RESULTADO */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+        
+        .modal-title {
+            color: #001542;
+            margin-bottom: 20px;
+        }
+        
+        .score {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .close-modal {
+            padding: 10px 20px;
+            background-color: #0a74da;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        /* RESPONSIVIDADE */
+        @media (max-width: 768px) {
+            .question-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .difficulty {
+                margin-left: 0;
+                margin-top: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra Superior com Logo, Seta de Voltar e Perfil -->
+    <header class="main-header">
+        <div class="header-left">
+            <div class="back-arrow" onclick="window.location.href='atp.html'">
+                <i class="fas fa-arrow-left"></i>
+            </div>
+            <div class="logo-container">
+                <img src="logo.jpg" alt="Logo da Instituição" class="logo">
+            </div>
+        </div>
+        
+        <div class="user-menu">
+            <div class="user-avatar" id="userAvatar">
+                <i class="fas fa-user-circle"></i>
+                <div class="user-dropdown" id="userDropdown">
+                    <span>Usuário</span>
+                    <a href="#" onclick="logout()">Sair</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Barra de Navegação -->
+    <nav class="top-nav">
+        <ul>
+            <li><a href="home.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="disciplinas.html"><i class="fas fa-book"></i> Disciplinas</a></li>
+            <li><a href="agenda.html"><i class="fas fa-calendar-alt"></i> Agenda</a></li>
+            <li><a href="boletim.html"><i class="fas fa-chart-bar"></i> Boletim</a></li>
+        </ul>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <div class="container">
+        <h1>Quiz ATP</h1>
+        
+        <form id="quizForm" class="quiz-form">
+            <!-- Questão 1 (Fácil) -->
+            <div class="question">
+                <div class="question-header">
+                    <div class="question-text">1. O que é um algoritmo?</div>
+                    <div class="difficulty easy">Fácil</div>
+                </div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q1" value="a"> 
+                        a) Uma linguagem de programação
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q1" value="b"> 
+                        b) Um conjunto de instruções passo a passo para resolver um problema
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q1" value="c"> 
+                        c) Um tipo de estrutura de dados
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q1" value="d"> 
+                        d) Um componente de hardware
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Questão 2 (Fácil) -->
+            <div class="question">
+                <div class="question-header">
+                    <div class="question-text">2. Qual estrutura de controle é usada para tomar decisões em programação?</div>
+                    <div class="difficulty easy">Fácil</div>
+                </div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q2" value="a"> 
+                        a) Loop for
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q2" value="b"> 
+                        b) Comando if
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q2" value="c"> 
+                        c) Função
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q2" value="d"> 
+                        d) Array
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Questão 3 (Médio) -->
+            <div class="question">
+                <div class="question-header">
+                    <div class="question-text">3. Qual a complexidade do algoritmo Bubble Sort no pior caso?</div>
+                    <div class="difficulty medium">Médio</div>
+                </div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q3" value="a"> 
+                        a) O(n)
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q3" value="b"> 
+                        b) O(n log n)
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q3" value="c"> 
+                        c) O(n²)
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q3" value="d"> 
+                        d) O(1)
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Questão 4 (Médio) -->
+            <div class="question">
+                <div class="question-header">
+                    <div class="question-text">4. Em programação, o que é recursão?</div>
+                    <div class="difficulty medium">Médio</div>
+                </div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q4" value="a"> 
+                        a) Uma função que chama a si mesma
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q4" value="b"> 
+                        b) Um tipo de loop
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q4" value="c"> 
+                        c) Um método de ordenação
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q4" value="d"> 
+                        d) Uma estrutura de dados
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Questão 5 (Médio) -->
+            <div class="question">
+                <div class="question-header">
+                    <div class="question-text">5. Qual desses NÃO é um paradigma de programação?</div>
+                    <div class="difficulty medium">Médio</div>
+                </div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q5" value="a"> 
+                        a) Orientado a objetos
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q5" value="b"> 
+                        b) Funcional
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q5" value="c"> 
+                        c) Procedural
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q5" value="d"> 
+                        d) Binário
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Questão 6 (Difícil) -->
+            <div class="question">
+                <div class="question-header">
+                    <div class="question-text">6. Qual algoritmo de ordenação utiliza a estratégia "dividir para conquistar"?</div>
+                    <div class="difficulty hard">Difícil</div>
+                </div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q6" value="a"> 
+                        a) Insertion Sort
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q6" value="b"> 
+                        b) Bubble Sort
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q6" value="c"> 
+                        c) Quick Sort
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q6" value="d"> 
+                        d) Selection Sort
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Questão 7 (Difícil) -->
+            <div class="question">
+                <div class="question-header">
+                    <div class="question-text">7. O que é um ponteiro em linguagem C?</div>
+                    <div class="difficulty hard">Difícil</div>
+                </div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q7" value="a"> 
+                        a) Uma variável que armazena o endereço de memória de outra variável
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q7" value="b"> 
+                        b) Um tipo de dado primitivo
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q7" value="c"> 
+                        c) Um operador matemático
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q7" value="d"> 
+                        d) Uma estrutura de controle
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Questão 8 (Difícil) -->
+            <div class="question">
+                <div class="question-header">
+                    <div class="question-text">8. Qual a principal vantagem de usar uma tabela hash?</div>
+                    <div class="difficulty hard">Difícil</div>
+                </div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q8" value="a"> 
+                        a) Tempo de acesso O(1) no caso médio
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q8" value="b"> 
+                        b) Sempre mantém os dados ordenados
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q8" value="c"> 
+                        c) Fácil implementação
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q8" value="d"> 
+                        d) Baixo consumo de memória
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Questão 9 (Médio) -->
+            <div class="question">
+                <div class="question-header">
+                    <div class="question-text">9. O que é complexidade ciclomática?</div>
+                    <div class="difficulty medium">Médio</div>
+                </div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q9" value="a"> 
+                        a) Medida da complexidade estrutural de um programa
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q9" value="b"> 
+                        b) Número de ciclos em um algoritmo
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q9" value="c"> 
+                        c) Tempo de execução de um loop
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q9" value="d"> 
+                        d) Número de variáveis em um programa
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Questão 10 (Fácil) -->
+            <div class="question">
+                <div class="question-header">
+                    <div class="question-text">10. Qual desses é um exemplo de estrutura de dados linear?</div>
+                    <div class="difficulty easy">Fácil</div>
+                </div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q10" value="a"> 
+                        a) Árvore binária
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q10" value="b"> 
+                        b) Grafo
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q10" value="c"> 
+                        c) Lista encadeada
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q10" value="d"> 
+                        d) Heap
+                    </label>
+                </div>
+            </div>
+            
+            <button type="submit" class="submit-btn">Enviar Respostas</button>
+        </form>
+    </div>
+
+    <!-- Modal de Resultado -->
+    <div id="resultModal" class="modal">
+        <div class="modal-content">
+            <h2 class="modal-title">Resultado do Quiz</h2>
+            <div class="score">Sua pontuação: <span id="quizScore">0</span>/10</div>
+            <button class="close-modal" onclick="closeModal()">Fechar</button>
+        </div>
+    </div>
+
+    <script>
+        // Respostas corretas
+        const correctAnswers = {
+            q1: "b",
+            q2: "b",
+            q3: "c",
+            q4: "a",
+            q5: "d",
+            q6: "c",
+            q7: "a",
+            q8: "a",
+            q9: "a",
+            q10: "c"
+        };
+
+        // Função para calcular a pontuação
+        function calculateScore() {
+            let score = 0;
+            const form = document.getElementById('quizForm');
+            const formData = new FormData(form);
+            
+            for (const [question, userAnswer] of formData.entries()) {
+                if (correctAnswers[question] === userAnswer) {
+                    score++;
+                }
+            }
+            
+            return score;
+        }
+
+        // Função para mostrar o resultado
+        function showResult(score) {
+            document.getElementById('quizScore').textContent = score;
+            document.getElementById('resultModal').style.display = 'flex';
+        }
+
+        // Função para fechar o modal
+        function closeModal() {
+            document.getElementById('resultModal').style.display = 'none';
+        }
+
+        // Evento de submit do formulário
+        document.getElementById('quizForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const score = calculateScore();
+            showResult(score);
+        });
+
+        // Função para logout
+        function logout() {
+            if(confirm('Deseja realmente sair do sistema?')) {
+                window.location.href = "index.html";
+            }
+        }
+
+        // Fechar dropdown ao clicar fora
+        window.addEventListener('click', function(e) {
+            if (!e.target.matches('.user-avatar') && !e.target.closest('.user-dropdown')) {
+                const dropdown = document.getElementById('userDropdown');
+                if (dropdown) dropdown.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Referências - ATP</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* ESTILOS GERAIS */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        /* BARRA SUPERIOR */
+        .main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 30px;
+            background-color: #001542;
+            color: white;
+        }
+        
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .back-arrow {
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .back-arrow:hover {
+            transform: translateX(-3px);
+        }
+        
+        .logo {
+            height: 40px;
+        }
+        
+        .user-avatar {
+            font-size: 2rem;
+            color: white;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .user-dropdown {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: white;
+            min-width: 150px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            border-radius: 5px;
+            padding: 10px;
+            z-index: 100;
+        }
+        
+        .user-dropdown a {
+            color: #333;
+            text-decoration: none;
+            display: block;
+            padding: 5px 0;
+        }
+        
+        .user-avatar:hover .user-dropdown {
+            display: block;
+        }
+        
+        /* BARRA DE NAVEGAÇÃO */
+        .top-nav {
+            background-color: #0a74da;
+            padding: 10px 20px;
+        }
+        
+        .top-nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+        }
+        
+        .top-nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        /* CONTEÚDO PRINCIPAL */
+        .container {
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: #001542;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            color: #0a74da;
+            border-bottom: 2px solid #0a74da;
+            padding-bottom: 10px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+        
+        /* LISTA DE REFERÊNCIAS */
+        .reference-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+        }
+        
+        .reference-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .reference-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .reference-title {
+            color: #001542;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .reference-link {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 15px;
+            background-color: #0a74da;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            transition: background-color 0.3s;
+        }
+        
+        .reference-link:hover {
+            background-color: #001542;
+        }
+        
+        .reference-link i {
+            margin-left: 5px;
+        }
+        
+        /* RESPONSIVIDADE */
+        @media (max-width: 768px) {
+            .reference-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .header-left {
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra Superior com Logo, Seta de Voltar e Perfil -->
+    <header class="main-header">
+        <div class="header-left">
+            <div class="back-arrow" onclick="window.location.href='biblioteca-atp.html'">
+                <i class="fas fa-arrow-left"></i>
+            </div>
+            <div class="logo-container">
+                <img src="logo.jpg" alt="Logo da Instituição" class="logo">
+            </div>
+        </div>
+        
+        <div class="user-menu">
+            <div class="user-avatar" id="userAvatar">
+                <i class="fas fa-user-circle"></i>
+                <div class="user-dropdown" id="userDropdown">
+                    <span>Usuário</span>
+                    <a href="#" onclick="logout()">Sair</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Barra de Navegação -->
+    <nav class="top-nav">
+        <ul>
+            <li><a href="home.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="disciplinas.html"><i class="fas fa-book"></i> Disciplinas</a></li>
+            <li><a href="agenda.html"><i class="fas fa-calendar-alt"></i> Agenda</a></li>
+            <li><a href="boletim.html"><i class="fas fa-chart-bar"></i> Boletim</a></li>
+        </ul>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <div class="container">
+        <h1>Material de Referência</h1>
+        
+        <h2 class="section-title">
+            <i class="fas fa-book"></i> Livros Recomendados
+        </h2>
+        
+        <div class="reference-list">
+            <div class="reference-card">
+                <div class="reference-title">Computação: Algoritmo e Programação 1</div>
+                <p>Livro introdutório sobre algoritmos e programação com exemplos práticos.</p>
+                <a href="https://educapes.capes.gov.br/bitstream/capes/176223/2/Algoritmos%20e%20Programa%C3%A7%C3%A3o%20I%20EBOOK.pdf" class="reference-link" target="_blank">
+                    Acessar Livro <i class="fas fa-external-link-alt"></i>
+                </a>
+            </div>
+            
+            <div class="reference-card">
+                <div class="reference-title">Técnicas de Programação - ProEdu</div>
+                <p>Material completo sobre técnicas avançadas de programação e boas práticas.</p>
+                <a href="https://proedu.rnp.br/bitstream/handle/123456789/1541/15.8_versao_Final_com_ISBN-Tecnicas_Programacao_07.07.14.pdf?sequence=1&isAllowed=y" class="reference-link" target="_blank">
+                    Acessar Livro <i class="fas fa-external-link-alt"></i>
+                </a>
+            </div>
+            
+            <div class="reference-card">
+                <div class="reference-title">Algoritmos e Estruturas de Dados 1</div>
+                <p>Abordagem teórica e prática de algoritmos e estruturas de dados fundamentais.</p>
+                <a href="https://www.inf.ufpr.br/marcos/livro_alg1/livro_alg1.pdf" class="reference-link" target="_blank">
+                    Acessar Livro <i class="fas fa-external-link-alt"></i>
+                </a>
+            </div>
+        </div>
+        
+        <h2 class="section-title">
+            <i class="fas fa-file-alt"></i> Artigos Acadêmicos
+        </h2>
+        
+        <div class="reference-list">
+            <div class="reference-card">
+                <div class="reference-title">Algoritmos Computacionais e Contratos</div>
+                <p>Artigo que explora a aplicação de algoritmos na análise de contratos legais.</p>
+                <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3194296" class="reference-link" target="_blank">
+                    Acessar Artigo <i class="fas fa-external-link-alt"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Função para logout
+        function logout() {
+            if(confirm('Deseja realmente sair do sistema?')) {
+                window.location.href = "index.html";
+            }
+        }
+
+        // Fechar dropdown ao clicar fora
+        window.addEventListener('click', function(e) {
+            if (!e.target.matches('.user-avatar') && !e.target.closest('.user-dropdown')) {
+                const dropdown = document.getElementById('userDropdown');
+                if (dropdown) dropdown.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
