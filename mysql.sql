@@ -183,3 +183,17 @@ CREATE TABLE `resposta`(
         ON DELETE CASCADE
         ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO disciplina (discnome, discdesc, created_at, slug) VALUES
+('ALGORITMOS E TECNICAS DE PROGRAMAÇÃO', 'Fundamentos de programação e estrutura de dados.', '2025-07-05 22:32:32', 'algoritmos-e-programacao'),
+('CIÊNCIA, TECNOLOGIA E SOCIEDADE', 'Impactos sociais da ciência e tecnologia.', '2025-07-05 22:32:32', 'ciencia-tecnologia-sociedade'),
+('FUNDAMENTOS DA COMPUTAÇÃO', 'Conceitos básicos de computação.', '2025-07-05 22:32:32', 'fundamentos-da-computacao'),
+('INGLES APLICADO A COMPUTAÇÃO', 'Inglês técnico para área de TI.', '2025-07-05 22:32:32', 'ingles-aplicado-a-computacao'),
+('LOGICA MATEMATICA', 'Raciocínio lógico e suas aplicações.', '2025-07-05 22:32:32', 'logica-matematica'),
+('MATEMATICA APLICADA A COMPUTACAO', 'Conceitos matemáticos para computação.', '2025-07-05 22:32:32', 'matematica-aplicada-a-computacao');
+
+INSERT INTO documentacao (disccodigo, doctitulo, docdesc, doclink, tipo_documento, created_at, updated_at) VALUES
+(1, 'Computação: Algoritmo e Programação 1', 'Livro introdutório sobre algoritmos e programação com exemplos práticos.', 'https://educapes.capes.gov.br/bitstream/capes/176223/2/Algoritmos%20e%20Programa%C3%A7%C3%A3o%20I%20EBOOK.pdf', 'referencia', '2025-07-07 01:06:18', '2025-07-07 01:06:18'),
+(1, 'Técnicas de Programação - ProEdu', 'Material completo sobre técnicas avançadas de programação e boas práticas.', 'https://proedu.rnp.br/bitstream/handle/123456789/1541/15.8_versao_Final_com_ISBN-Tecnicas_Programacao_07.07.14.pdf?sequence=1&isAllowed=y', 'referencia', '2025-07-07 01:06:18', '2025-07-07 01:06:18'),
+(1, 'Algoritmos e Estruturas de Dados 1', 'Abordagem teórica e prática de algoritmos e estruturas de dados fundamentais.', 'https://www.inf.ufpr.br/marcos/livro_alg1/livro_alg1.pdf', 'referencia', '2025-07-07 01:06:18', '2025-07-07 01:06:18'),
+(1, 'Algoritmos Computacionais e Contratos', 'Artigo que explora a aplicação de algoritmos na análise de contratos legais.', 'https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3194296', 'referencia', '2025-07-07 01:06:18', '2025-07-07 01:06:18');
