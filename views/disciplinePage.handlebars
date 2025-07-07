@@ -1,0 +1,32 @@
+
+<div class="container">
+    <h1>{{discipline.discnome}}</h1> 
+    <p>{{discipline.discdesc}}</p> 
+
+    <div class="options-grid">
+        <div class="option-card" onclick="window.location.href='/biblioteca/{{discipline.slug}}'">
+            <div class="option-icon">
+                <i class="fas fa-book-open"></i>
+            </div>
+            <h2>Biblioteca</h2>
+            <p>Material de estudo e referências</p>
+        </div>
+
+        <div class="option-card" onclick="window.location.href='/flashcards/{{discipline.slug}}'">
+            <div class="option-icon">
+                <i class="fas fa-layer-group"></i>
+            </div>
+            <h2>Flashcards</h2>
+            <p>Cartões de revisão de conceitos</p>
+        </div>
+        <div class="option-card" onclick="window.location.href='/documentacao'">
+            <div class="option-icon">
+                <i class="fas fa-file-alt"></i>
+            </div>
+            <h2>Documentação</h2>
+            <p>documentação das principais linguagens de programação</p>
+        </div>
+    </div>
+</div>
+
+<script src="/js/disciplinePage.js"></script>

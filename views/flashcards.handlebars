@@ -1,0 +1,91 @@
+<div class="main-content">
+    <div class="flashcards-header">
+        <h1>Meus Flashcards</h1>
+        <div class="flashcard-controls">
+            <label for="disciplineFilter">Disciplina:</label>
+            <select id="disciplineFilter">
+                <option value="all">Todas as Disciplinas</option>
+                </select>
+            <button class="add-flashcard-btn" onclick="openFlashcardModal()"><i class="fas fa-plus"></i> Adicionar Flashcard</button>
+        </div>
+    </div>
+
+    <div class="flashcards-container">
+        <div id="currentFlashcardContainer">
+            <div class="flashcard" id="mainFlashcard">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">
+                        <p class="flashcard-content" id="flashcardQuestion">Carregando...</p>
+                        <small class="flashcard-discipline" id="flashcardDisciplineFront"></small>
+                    </div>
+                    <div class="flashcard-back">
+                        <p class="flashcard-content" id="flashcardAnswer">Carregando...</p>
+                        <small class="flashcard-discipline" id="flashcardDisciplineBack"></small>
+                    </div>
+                </div>
+            </div>
+            <div id="noFlashcardsMessage" style="text-align: center; margin-top: 20px; display: none;">
+                <p>Nenhum flashcard encontrado para a disciplina selecionada.</p>
+                <p>Clique em "Adicionar Flashcard" para começar!</p>
+            </div>
+        </div>
+
+        <div class="flashcard-navigation">
+            <button class="control-btn" id="prevFlashcardBtn"><i class="fas fa-arrow-left"></i> Anterior</button>
+            <span id="flashcardCounter">0/0</span>
+            <button class="control-btn" id="nextFlashcardBtn">Próximo <i class="fas fa-arrow-right"></i></button>
+        </div>
+        <div class="flashcard-actions">
+            <button class="flashcard-btn edit" id="editFlashcardBtn" onclick="editCurrentFlashcard()"><i class="fas fa-edit"></i> Editar</button>
+            <button class="flashcard-btn delete" id="deleteFlashcardBtn" onclick="confirmDeleteCurrentFlashcard()"><i class="fas fa-trash"></i> Excluir</button>
+        </div>
+    </div>
+</div>
+
+<div id="flashcardModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeFlashcardModal()">&times;</span>
+        <h2 id="modalFlashcardTitle">Adicionar Novo Flashcard</h2>
+        <form id="flashcardForm">
+            <input type="hidden" id="flashcardId"> <div class="form-group">
+                <label for="modalDisciplineSelect">Disciplina:</label>
+                <select id="modalDisciplineSelect" name="disccodigo" required>
+                    </select>
+            </div>
+
+            <div class="form-group">
+                <label for="fcfrenteInput">Pergunta (Frente):</label>
+                <textarea id="fcfrenteInput" name="fcfrente" required rows="4" placeholder="Digite a pergunta do flashcard..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="fcversoInput">Resposta (Verso):</label>
+                <textarea id="fcversoInput" name="fcverso" required rows="4" placeholder="Digite a resposta do flashcard..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="dificuldadeInput">Dificuldade:</label>
+                <select id="dificuldadeInput" name="dificuldade">
+                    <option value="1">1 - Fácil</option>
+                    <option value="2">2 - Médio</option>
+                    <option value="3">3 - Difícil</option>
+                </select>
+            </div>
+
+            <button type="submit" class="submit-btn">Salvar Flashcard</button>
+        </form>
+    </div>
+</div>
+
+<div id="confirmDeleteFlashcardModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeConfirmDeleteFlashcardModal()">&times;</span>
+        <h2>Confirmar Exclusão</h2>
+        <p>Tem certeza de que deseja excluir este flashcard?</p>
+        <button id="confirmDeleteFlashcardBtn" class="delete-btn">Excluir</button>
+        <button class="submit-button" onclick="closeConfirmDeleteFlashcardModal()">Cancelar</button>
+    </div>
+</div>
+
+<script type="application/json" id="disciplines-data">{{{disciplinesJson}}}</script>
+<script src="/js/flashcards.js"></script>

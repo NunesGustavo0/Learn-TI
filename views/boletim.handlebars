@@ -1,0 +1,113 @@
+<div class="boletim-container">
+    <div class="boletim-header">
+        <h1>Meu Boletim</h1>
+        <div class="semester-selector">
+            <label for="semesterFilter">Semestre:</label>
+            <select id="semesterFilter">
+                <option value="all">Todos os Semestres</option>
+                <option value="2025-1">2025/1</option>
+                <option value="2024-2">2024/2</option>
+                <option value="2024-1">2024/1</option>
+            </select>
+        </div>
+        <button class="add-grade" onclick="openGradeModal()">
+            <i class="fas fa-plus"></i> Adicionar Nota
+        </button>
+    </div>
+
+    <div class="grades-table-container">
+        <table class="grades-table" id="gradesTable">
+            <thead>
+                <tr>
+                    <th>Disciplina</th>
+                    <th>Ano</th>
+                    <th>Semestre</th>
+                    <th>N1</th>
+                    <th>N2</th>
+                    <th>N3</th>
+                    <th>Média</th>
+                    <th>Situação</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr id="noGradesMessage" style="display: none;">
+                    <td colspan="9">Nenhuma nota encontrada para o período selecionado.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div id="gradeModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeGradeModal()">&times;</span>
+        <h2 id="modalTitle">Adicionar Nova Nota</h2>
+        <form id="gradeForm">
+            <input type="hidden" id="gradeId"> <div class="form-group">
+                <label for="disciplineSelect">Disciplina:</label>
+                <select id="disciplineSelect" name="disccodigo" required>
+                    </select>
+            </div>
+
+            <div class="form-group">
+                <label for="gradeYear">Ano:</label>
+                <input type="number" id="gradeYear" name="boano" required min="2000" max="2100">
+            </div>
+
+            <div class="form-group">
+                <label for="gradeSemester">Semestre:</label>
+                <select id="gradeSemester" name="bosemestre" required>
+                    <option value="1">1º Semestre</option>
+                    <option value="2">2º Semestre</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="gradeN1">Nota 1 (N1):</label>
+                <input type="number" id="gradeN1" name="n1" step="0.01" min="0" max="10">
+            </div>
+
+            <div class="form-group">
+                <label for="gradeN2">Nota 2 (N2):</label>
+                <input type="number" id="gradeN2" name="n2" step="0.01" min="0" max="10">
+            </div>
+
+            <div class="form-group">
+                <label for="gradeN3">Nota 3 (N3):</label>
+                <input type="number" id="gradeN3" name="n3" step="0.01" min="0" max="10">
+            </div>
+
+            <button type="submit" class="submit-button">Salvar Nota</button>
+        </form>
+    </div>
+</div>
+
+<div id="confirmDeleteModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeConfirmDeleteModal()">&times;</span>
+        <h2>Confirmar Exclusão</h2>
+        <p>Tem certeza de que deseja excluir esta nota?</p>
+        <button id="confirmDeleteGradeBtn" class="delete-btn">Excluir</button>
+        <button class="submit-button" onclick="closeConfirmDeleteModal()">Cancelar</button>
+    </div>
+</div>
+
+<div class="boletim-container">
+    </div>
+
+<div id="gradeModal" class="modal">
+    </div>
+
+<div id="confirmDeleteModal" class="modal">
+    </div>
+
+<script type="application/json" id="disciplines-data">
+    {{{disciplinesJson}}}
+</script>
+
+<script type="application/json" id="user-data">
+    {{{userId}}}
+</script>
+
+<script src="/js/boletim.js"></script>
