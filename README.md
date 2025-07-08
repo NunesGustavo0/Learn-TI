@@ -6,7 +6,7 @@
 
 * Clone o repositório usando o seguinte comando:
 ```
-../Banzeiro_1.0.1.exe
+git clone https://github.com/NunesGustavo0/Learn-TI.git
 ```
 Copie e cole esse comando no terminal da sua maquina
 
