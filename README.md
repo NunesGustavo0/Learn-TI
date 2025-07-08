@@ -36,8 +36,6 @@ No arquivo conector.js, altere o código do conector, adicionando as informaçõ
 ```
 cd /codigos/learn_ti
 ```
-Por exemplo:
-
 * Executar servidor
 ```
 node login.js
