@@ -3,3 +3,6 @@
 <p>Rode o arquivo .sql no seu mysql ou mariadb</p>
 <h2>Servidor Web</h2>
 <p>Insira o seguinte comando no seu terminal:</p>
+```
+../Banzeiro_1.0.1.exe
+```
