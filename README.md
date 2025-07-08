@@ -10,6 +10,12 @@ git clone https://github.com/NunesGustavo0/Learn-TI.git
 ```
 Copie e cole esse comando no terminal da sua maquina
 
+* Instalando dependências:
+```
+npm install
+```
+Execute o comando npm install para instalar todas as dependências 
+
 * Conectar com seu banco 
 ```
 //Conexao com o banco dados
